@@ -35,6 +35,9 @@ public class World
 
     void update()
     {
+        if(tilemap[player.getY()][player.getX()] != null && tilemap[player.getY()][player.getX()].hasCollision)
+            player.setPosition(player.getPrevX(), player.getPrevY());
+
         for(GameObject object : objects)
             tilemap[object.getY()][object.getX()] = object;
     }
