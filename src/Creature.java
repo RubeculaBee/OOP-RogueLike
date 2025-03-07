@@ -1,10 +1,7 @@
 public abstract class Creature extends GameObject
 {
     private int health;
-    boolean upValid;
-    boolean downValid;
-    boolean leftValid;
-    boolean rightValid;
+
 
     Creature(int x, int y, char sprite, int health)
     {
@@ -24,23 +21,19 @@ public abstract class Creature extends GameObject
         {
             case "up" ->
             {
-                if (upValid)
-                    this.setPosition(this.getX(), this.getY()-1);
+                this.setPosition(this.getX(), this.getY()-1);
             }
             case "down" ->
             {
-                if (downValid)
-                    this.setPosition(this.getX(), this.getY()+1);
+                this.setPosition(this.getX(), this.getY()+1);
             }
             case "left" ->
             {
-                if (leftValid)
-                    this.setPosition(this.getX()-1, this.getY());
+                this.setPosition(this.getX()-1, this.getY());
             }
             case "right" ->
             {
-                if (rightValid)
-                    this.setPosition(this.getX()+1, this.getY());
+                this.setPosition(this.getX()+1, this.getY());
             }
         }
     }

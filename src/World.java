@@ -50,10 +50,5 @@ public class World
 
             System.out.print("\n");
         }
-
-        this.player.upValid = !this.tilemap[this.player.getY()-1][this.player.getX()].hasCollision;
-        this.player.downValid = !this.tilemap[this.player.getY()+1][this.player.getX()].hasCollision;
-        this.player.leftValid = !this.tilemap[this.player.getY()][this.player.getX()-1].hasCollision;
-        this.player.rightValid = !this.tilemap[this.player.getY()][this.player.getX()+1].hasCollision;
     }
 }
