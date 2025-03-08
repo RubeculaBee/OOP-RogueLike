@@ -60,6 +60,8 @@ public class World
                 this.addWall(0,1,0,height-1);
                 this.addWall(1,height-1,width-1,height-1);
                 this.addWall(width-1,1,width-1,height-1-1);
+
+                this.player.setPosition(width/2,height/2);
             }
 
             // Thick walls along the top and bottom, creating a single empty hallway in the middle
@@ -67,6 +69,8 @@ public class World
             {
                 this.addWall(0,0,width-1,(int)((height-1)/3.));
                 this.addWall(0, (int)Math.ceil((height/3.)*2),width-1,height-1);
+
+                this.player.setPosition(1,height/2);
             }
 
             // Thick walls along the left and right, creating a single empty hallway in the middle
@@ -74,6 +78,8 @@ public class World
             {
                 this.addWall(0,0,(int)((width-1)/3.),height-1);
                 this.addWall((int)Math.ceil((width/3.)*2),0,width-1,height-1);
+
+                this.player.setPosition(width/2,1);
             }
 
             /* Large blocks of wall in each corner, creating to hallways that extend from the left to the right, and
@@ -84,6 +90,8 @@ public class World
                 this.addWall((int)Math.ceil((width/3.)*2),0,width-1,(int)((height-1)/3.));
                 this.addWall(0, (int)Math.ceil((height/3.)*2),(int)((width-1)/3.),height-1);
                 this.addWall((int)Math.ceil((width/3.)*2),(int)Math.ceil((height/3.)*2),width-1,height-1);
+
+                this.player.setPosition(1,height/2);
             }
         }
     }

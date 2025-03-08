@@ -7,12 +7,7 @@ public class Main
 
     public static void main(String[] args)
     {
-        int width = 15;
-        int height = 9;
-
-        World testRoom = new World(width,height,Layout.HALL_VERTICAL);
-
-        testRoom.player.setPosition(3,3);
+        World testRoom = new World(18,9, Layout.INTERSECTION);
 
         do
         {
