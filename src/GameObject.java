@@ -1,9 +1,9 @@
 public abstract class GameObject
 {
-    private int x;
-    private int y;
-    boolean hasCollision;
-    private char sprite;
+    private int x; // Objects X position
+    private int y; // Objects Y position
+    boolean hasCollision; // Whether the object has collision (are creatures prevented from moving over this object or not)
+    private char sprite; // What symbol to use when printing the object
 
     GameObject(int x, int y, boolean hasCollision, char sprite)
     {

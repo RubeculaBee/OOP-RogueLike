@@ -1,14 +1,15 @@
 public abstract class Creature extends GameObject
 {
-    private int health;
-    boolean upValid;
-    boolean downValid;
-    boolean leftValid;
-    boolean rightValid;
+    private int health; // Creature dies when this attribute reaches 0
+    private int prevX; // The X position of the creature before it moved
+    private int prevY; // The Y position of the creature before it moved
 
     Creature(int x, int y, char sprite, int health)
     {
+        // Creatures always have collision, but sprite varies
         super(x, y, true, sprite);
+        prevX = x;
+        prevY = y;
         this.health = health;
     }
 
@@ -16,31 +17,39 @@ public abstract class Creature extends GameObject
     {
         return health;
     }
-    void setHealth(int health) {this.health = health;    }
 
+    int getPrevX(){return this.prevX;}
+    int getPrevY(){return this.prevY;}
+
+    // Moves the creature in one of 4 directions
     void move(String direction)
     {
         switch (direction.toLowerCase())
         {
+            //Sets the creatures previous position to their current position, then changes their position
             case "up" ->
             {
-                if (upValid)
-                    this.setPosition(this.getX(), this.getY()-1);
+                prevX = this.getX();
+                prevY = this.getY();
+                this.setPosition(this.getX(), this.getY()-1);
             }
             case "down" ->
             {
-                if (downValid)
-                    this.setPosition(this.getX(), this.getY()+1);
+                prevX = this.getX();
+                prevY = this.getY();
+                this.setPosition(this.getX(), this.getY()+1);
             }
             case "left" ->
             {
-                if (leftValid)
-                    this.setPosition(this.getX()-1, this.getY());
+                prevX = this.getX();
+                prevY = this.getY();
+                this.setPosition(this.getX()-1, this.getY());
             }
             case "right" ->
             {
-                if (rightValid)
-                    this.setPosition(this.getX()+1, this.getY());
+                prevX = this.getX();
+                prevY = this.getY();
+                this.setPosition(this.getX()+1, this.getY());
             }
         }
     }
