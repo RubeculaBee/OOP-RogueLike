@@ -96,7 +96,7 @@ public class World
         for(int row = startY; row <= endY; row++)
         {
             for(int col = startX; col <= endX; col++)
-                objects.add(new Wall(col, row));
+                this.objects.add(new Wall(col, row));
         }
     }
 
@@ -106,20 +106,20 @@ public class World
         // If the player's position would place the player onto an object with collision, it is first put back to its previous position
         /* Only runs collision check if the object exists, because otherwise it could crash trying to check
            the collision of an object that does not exist */
-        if(tilemap[player.getY()][player.getX()] != null && tilemap[player.getY()][player.getX()].hasCollision)
-            player.setPosition(player.getPrevX(), player.getPrevY());
+        if(this.tilemap[this.player.getY()][this.player.getX()] != null && this.tilemap[this.player.getY()][this.player.getX()].hasCollision)
+            this.player.setPosition(this.player.getPrevX(), this.player.getPrevY());
 
         /* Objects are placed in the order they exist in the object list, thus objects later in the list will
            replace, and in a sense be "drawn over" objects earlier in the list. The first objects in the list will
            always be floor tiles, followed by the player, as they are added when the world is initialised */
-        for(GameObject object : objects)
-            tilemap[object.getY()][object.getX()] = object;
+        for(GameObject object : this.objects)
+            this.tilemap[object.getY()][object.getX()] = object;
     }
 
     //Prints the tilemap to the screen
     void display()
     {
-        for(GameObject[] row : tilemap)
+        for(GameObject[] row : this.tilemap)
         {
             for(GameObject object : row)
                 System.out.print(object);
