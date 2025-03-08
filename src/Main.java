@@ -7,10 +7,10 @@ public class Main
 
     public static void main(String[] args)
     {
-        int width = 20;
-        int height = 8;
+        int width = 15;
+        int height = 9;
 
-        World testRoom = new World(width,height);
+        World testRoom = new World(width,height,Layout.VERTICAL_HALL);
 
         testRoom.player.setPosition(3,3);
 
