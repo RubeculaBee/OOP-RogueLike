@@ -55,7 +55,10 @@ public class World
 
             case INTERSECTION ->
             {
-
+                this.addWall(0,0, (width-1)/3, (height-1)/3);
+                this.addWall(((width-1)/3)*2,0,width-1,(height-1)/3);
+                this.addWall(0, ((height-1)/3)*2,(width-1)/3,height-1);
+                this.addWall(((width-1)/3)*2,((height-1)/3)*2,width-1,height-1);
             }
         }
     }
