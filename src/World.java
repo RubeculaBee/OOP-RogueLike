@@ -29,9 +29,28 @@ public class World
         this.objects.add(this.player);
     }
 
-    void initPreset(Layout layout)
+    World(int width, int height, Layout preset) // initialises a world with specified dimensions and a preset layout
     {
-        switch(layout)
+        this.width = width;
+        this.height = height;
+        this.tilemap = new GameObject[height][width];
+        this.objects = new ArrayList<>();
+
+        for(int row = 0; row < this.height; row++)
+        {
+            for(int col = 0; col < this.width; col++)
+                this.objects.add(new Floor(col, row));
+        }
+
+        this.player = new Player(-1,-1);
+        this.objects.add(this.player);
+
+        this.initPreset(preset);
+    }
+
+    private void initPreset(Layout preset)
+    {
+        switch(preset)
         {
             case EMPTY ->
             {

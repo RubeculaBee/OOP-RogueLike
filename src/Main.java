@@ -11,7 +11,6 @@ public class Main
         int height = 8;
 
         World testRoom = new World(width,height);
-        testRoom.initPreset(Layout.EMPTY);
 
         testRoom.player.setPosition(3,3);
 
