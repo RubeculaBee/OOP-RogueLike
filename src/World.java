@@ -29,6 +29,37 @@ public class World
         this.objects.add(this.player);
     }
 
+    void initPreset(Layout layout)
+    {
+        switch(layout)
+        {
+            case EMPTY ->
+            {
+                this.addWall(0,0,width-1,0);
+                this.addWall(0,1,0,height-1);
+                this.addWall(1,height-1,width-1,height-1);
+                this.addWall(width-1,1,width-1,height-1-1);
+            }
+
+            case HORIZONTAL_HALL ->
+            {
+                this.addWall(0,0,width-1,(height-1)/3);
+                this.addWall(0, ((height-1)/3)*2,width-1,height-1);
+            }
+
+            case VERTICAL_HALL ->
+            {
+                this.addWall(0,0,(width-1)/3,height-1);
+                this.addWall(((width-1)/3)*2,0,width-1,height-1);
+            }
+
+            case INTERSECTION ->
+            {
+
+            }
+        }
+    }
+
     // Adds an amount of wall tiles to the object list, with positions between the start and end point
     /* (effectively draws a filled rectangle of Walls with the start position as the top-left corner and
        the end position as the bottom-right corner */
