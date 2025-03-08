@@ -1,0 +1,4 @@
+public enum Layout
+{
+    EMPTY, VERTICAL_HALL, HORIZONTAL_HALL, INTERSECTION
+}
