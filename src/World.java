@@ -44,8 +44,6 @@ public class World
 
     void display()
     {
-        update();
-
         for(GameObject[] row : tilemap)
         {
             for(GameObject object : row)
