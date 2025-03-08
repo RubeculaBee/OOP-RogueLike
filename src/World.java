@@ -48,10 +48,12 @@ public class World
         this.initPreset(preset);
     }
 
+    // Adds walls to create the specified layout
     private void initPreset(Layout preset)
     {
         switch(preset)
         {
+            //Walls surround the perimeter, otherwise nothing else
             case EMPTY ->
             {
                 this.addWall(0,0,width-1,0);
@@ -60,18 +62,22 @@ public class World
                 this.addWall(width-1,1,width-1,height-1-1);
             }
 
+            // Thick walls along the top and bottom, creating a single empty hallway in the middle
             case HORIZONTAL_HALL ->
             {
                 this.addWall(0,0,width-1,(height-1)/3);
                 this.addWall(0, ((height-1)/3)*2,width-1,height-1);
             }
 
+            // Thick walls along the left and right, creating a single empty hallway in the middle
             case VERTICAL_HALL ->
             {
                 this.addWall(0,0,(width-1)/3,height-1);
                 this.addWall(((width-1)/3)*2,0,width-1,height-1);
             }
 
+            /* Large blocks of wall in each corner, creating to hallways that extend from the left to the right, and
+               from the top to the bottom, intersecting in the middle */
             case INTERSECTION ->
             {
                 this.addWall(0,0, (width-1)/3, (height-1)/3);
