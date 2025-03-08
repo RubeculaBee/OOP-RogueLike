@@ -63,14 +63,14 @@ public class World
             }
 
             // Thick walls along the top and bottom, creating a single empty hallway in the middle
-            case HORIZONTAL_HALL ->
+            case HALL_HORIZONTAL ->
             {
                 this.addWall(0,0,width-1,(int)((height-1)/3.));
                 this.addWall(0, (int)Math.ceil((height/3.)*2),width-1,height-1);
             }
 
             // Thick walls along the left and right, creating a single empty hallway in the middle
-            case VERTICAL_HALL ->
+            case HALL_VERTICAL ->
             {
                 this.addWall(0,0,(int)((width-1)/3.),height-1);
                 this.addWall((int)Math.ceil((width/3.)*2),0,width-1,height-1);
