@@ -22,6 +22,7 @@ public class Main
 
         do
         {
+            testRoom.update();
             testRoom.display();
             action = input.nextLine();
 
