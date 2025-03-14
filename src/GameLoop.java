@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Main
+public class GameLoop
 {
     static Scanner input = new Scanner(System.in);
     static String action;
