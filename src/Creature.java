@@ -27,25 +27,25 @@ public abstract class Creature extends GameObject
         switch (direction.toLowerCase())
         {
             //Sets the creatures previous position to their current position, then changes their position
-            case "up" ->
+            case "w" ->
             {
                 this.prevX = this.getX();
                 this.prevY = this.getY();
                 this.setPosition(this.getX(), this.getY()-1);
             }
-            case "down" ->
+            case "s" ->
             {
                 this.prevX = this.getX();
                 this.prevY = this.getY();
                 this.setPosition(this.getX(), this.getY()+1);
             }
-            case "left" ->
+            case "a" ->
             {
                 this.prevX = this.getX();
                 this.prevY = this.getY();
                 this.setPosition(this.getX()-1, this.getY());
             }
-            case "right" ->
+            case "d" ->
             {
                 this.prevX = this.getX();
                 this.prevY = this.getY();
