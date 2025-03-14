@@ -2,7 +2,8 @@ import java.util.ArrayList;
 
 public class World
 {
-    ArrayList<GameObject> objects; // A list of every object in the world
+    ArrayList<Creature> creatures; // A list of every creature in the world
+    ArrayList<GameObject> terrain; // A list of every non-creature in the world
     GameObject[][][] tilemap; // A 3D array that stores each object at its (x,y) position, as well as its height .
     Player player; // The player, every world needs one.
     int width, height; // The width and height of the world
@@ -15,21 +16,22 @@ public class World
         this.width = width;
         this.height = height;
         this.tilemap = new GameObject[2][height][width];
-        this.objects = new ArrayList<>();
+        this.creatures = new ArrayList<>();
+        this.terrain = new ArrayList<>();
 
         /* When the world is first created, creates a bunch of floor tiles equal to the number of
            spaces in the tilemap. Each floor tile's location is set to a unique place in teh tilemap */
         for(int row = 0; row < this.height; row++)
         {
             for(int col = 0; col < this.width; col++)
-                this.objects.add(new Floor(col, row));
+                this.terrain.add(new Floor(col, row));
         }
 
-        // Creates a new player and adds them to the object list.
+        // Creates a new player and adds them to the creatures list.
         /* When the world is initialised, the player position is set out of bounds
            Therefor, the player's position must be set manually to prevent crashing */
         this.player = new Player(-1,-1);
-        this.objects.add(this.player);
+        this.creatures.add(this.player);
     }
 
     World(int width, int height, Layout preset) // initialises a world with specified dimensions and a preset layout
@@ -37,16 +39,17 @@ public class World
         this.width = width;
         this.height = height;
         this.tilemap = new GameObject[2][height][width];
-        this.objects = new ArrayList<>();
+        this.creatures = new ArrayList<>();
+        this.terrain = new ArrayList<>();
 
         for(int row = 0; row < this.height; row++)
         {
             for(int col = 0; col < this.width; col++)
-                this.objects.add(new Floor(col, row));
+                this.terrain.add(new Floor(col, row));
         }
 
         this.player = new Player(-1,-1);
-        this.objects.add(this.player);
+        this.creatures.add(this.player);
 
         this.initPreset(preset);
     }
@@ -107,7 +110,7 @@ public class World
         for(int row = startY; row <= endY; row++)
         {
             for(int col = startX; col <= endX; col++)
-                this.objects.add(new Wall(col, row));
+                this.terrain.add(new Wall(col, row));
         }
     }
 
@@ -115,11 +118,10 @@ public class World
     // Non-creature objects don't move, so this should only be run when terrain is added
     void terrainUpdate()
     {
-        for(GameObject object : this.objects)
-            if(!(object instanceof Creature))
-                this.tilemap[TERRAIN_LAYER][object.getY()][object.getX()] = object;
+        for(GameObject object : this.terrain)
+            this.tilemap[TERRAIN_LAYER][object.getY()][object.getX()] = object;
     }
-    
+
     // Updates the position of each creature.
     // Should be called after each turn.
     void creatureUpdate()
@@ -133,10 +135,8 @@ public class World
         // Before placing each creature, first destroy and recreate the creature layer to empty it
         this.tilemap[CREATURE_LAYER] = new GameObject[this.height][this.width];
 
-        // for each game object, if it's a creature, add it to the creature layer at it's position
-        for(GameObject object : this.objects)
-            if(object instanceof Creature)
-                this.tilemap[CREATURE_LAYER][object.getY()][object.getX()] = object;
+        for(GameObject object : this.creatures)
+            this.tilemap[CREATURE_LAYER][object.getY()][object.getX()] = object;
     }
 
     //Prints the tilemap to the screen
