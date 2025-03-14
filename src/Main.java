@@ -8,10 +8,12 @@ public class Main
     public static void main(String[] args)
     {
         World testRoom = new World(18,9, Layout.INTERSECTION);
+        testRoom.terrainUpdate();
+
 
         do
         {
-            testRoom.update();
+            testRoom.creatureUpdate();
             testRoom.display();
             action = input.nextLine();
 
