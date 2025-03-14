@@ -135,8 +135,11 @@ public class World
         // Before placing each creature, first destroy and recreate the creature layer to empty it
         this.tilemap[CREATURE_LAYER] = new GameObject[this.height][this.width];
 
-        for(GameObject object : this.creatures)
-            this.tilemap[CREATURE_LAYER][object.getY()][object.getX()] = object;
+        for(Creature creature : this.creatures)
+        {
+            creature.update();
+            this.tilemap[CREATURE_LAYER][creature.getY()][creature.getX()] = creature;
+        }
     }
 
     //Prints the tilemap to the screen

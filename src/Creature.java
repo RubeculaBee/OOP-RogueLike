@@ -21,6 +21,9 @@ public abstract class Creature extends GameObject
     int getPrevX(){return this.prevX;}
     int getPrevY(){return this.prevY;}
 
+    // Called everytime the world updates
+    abstract void update();
+
     // Moves the creature in one of 4 directions
     void move(String direction)
     {
