@@ -15,9 +15,9 @@ public class GameLoop
         {
             testRoom.creatureUpdate();
             testRoom.display();
-            action = input.nextLine();
 
-            testRoom.player.move(action);
+            action = input.nextLine().toLowerCase();
+            testRoom.player.doAction(action);
         }
         while (!action.equals("exit"));
     }
