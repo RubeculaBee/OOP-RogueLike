@@ -3,6 +3,7 @@ import java.util.Scanner;
 public class GameLoop
 {
     static Scanner input = new Scanner(System.in);
+    static int iterations;
 
     public static void main(String[] args)
     {
@@ -16,6 +17,8 @@ public class GameLoop
             testRoom.display();
 
             testRoom.player.setAction(input.nextLine());
+
+            iterations++;
         }
     }
 }
