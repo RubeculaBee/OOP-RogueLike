@@ -1,11 +1,12 @@
 public class Goblin extends Creature
 {
-    GameObject target;
+    Player target;
 
-    Goblin(int x, int y)
+    Goblin(int x, int y, Player target)
     {
         // Goblin always has 20 health and G as it's sprite
         super(x, y, 'G', 20);
+        this.target = target;
     }
 
     @Override
