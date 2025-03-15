@@ -24,6 +24,12 @@ public abstract class Creature extends GameObject
     // Called everytime the world updates
     abstract void update();
 
+    void checkCollision(GameObject object)
+    {
+        if(object.hasCollision)
+            this.setPosition(this.getPrevX(), this.getPrevY());
+    }
+
     // Moves the creature in one of 4 directions
     void move(String direction)
     {
