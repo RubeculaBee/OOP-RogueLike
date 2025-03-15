@@ -131,18 +131,18 @@ public class World
     // Should be called after each turn.
     void creatureUpdate()
     {
-        // If the player's position would place the player onto an object with collision, it is first put back to its previous position
-        /* Only runs collision check if the object exists, because otherwise it could crash trying to check
-           the collision of an object that does not exist */
-        if(this.tilemap[TERRAIN_LAYER][this.player.getY()][this.player.getX()] != null && this.tilemap[TERRAIN_LAYER][this.player.getY()][this.player.getX()].hasCollision)
-            this.player.setPosition(this.player.getPrevX(), this.player.getPrevY());
-
-        // Before placing each creature, first destroy and recreate the creature layer to empty it
-        this.tilemap[CREATURE_LAYER] = new GameObject[this.height][this.width];
-
-        for(Creature creature : this.creatures)
+        for(Creature creature : this.creatures) //for each creature
         {
-            creature.update();
+            creature.setPrevPosition();
+            creature.update(); // Run the creatures update method
+
+            //check if it's movement collided with anything (and revert it if it did)
+            creature.checkCollision(this.tilemap[CREATURE_LAYER][creature.getY()][creature.getX()]);
+            creature.checkCollision(this.tilemap[TERRAIN_LAYER][creature.getY()][creature.getX()]);
+
+            //remove the creature from its previous position
+            this.tilemap[CREATURE_LAYER][creature.getPrevY()][creature.getPrevX()] = null;
+            //push the creature to the tilemap
             this.tilemap[CREATURE_LAYER][creature.getY()][creature.getX()] = creature;
         }
     }
