@@ -32,7 +32,7 @@ public abstract class Creature extends GameObject
 
     void checkCollision(GameObject object)
     {
-        if(object.hasCollision)
+        if(object != null && object.hasCollision)
             this.setPosition(this.getPrevX(), this.getPrevY());
     }
 
