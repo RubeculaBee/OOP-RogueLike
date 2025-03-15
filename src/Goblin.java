@@ -1,4 +1,4 @@
-public class Goblin extends Creature implements Hostile
+public class Goblin extends Creature
 {
     GameObject target;
 
