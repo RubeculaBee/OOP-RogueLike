@@ -114,6 +114,11 @@ public class World
         }
     }
 
+    void addCreature(Creature creature)
+    {
+        this.creatures.add(creature);
+    }
+
     // Updates the position of each non-creature object.
     // Non-creature objects don't move, so this should only be run when terrain is added
     void terrainUpdate()

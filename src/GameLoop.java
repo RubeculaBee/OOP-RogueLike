@@ -8,6 +8,7 @@ public class GameLoop
     {
         World testRoom = new World(18,9, Layout.INTERSECTION);
         testRoom.terrainUpdate();
+        testRoom.addCreature(new Goblin(2,2,testRoom.player));
 
         while(true)
         {
