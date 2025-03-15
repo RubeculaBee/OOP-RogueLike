@@ -2,48 +2,54 @@ import java.util.ArrayList;
 
 public class World
 {
-    ArrayList<GameObject> objects; // A list of every object in the world
-    GameObject[][] tilemap; // A 2D array that stores each object at its position.
+    ArrayList<Creature> creatures; // A list of every creature in the world
+    ArrayList<GameObject> terrain; // A list of every non-creature in the world
+    GameObject[][][] tilemap; // A 3D array that stores each object at its (x,y) position, as well as its height .
     Player player; // The player, every world needs one.
     int width, height; // The width and height of the world
+
+    final int TERRAIN_LAYER = 0;   // first layer of objects stores the terrain
+    final int CREATURE_LAYER = 1; // second layer stores creatures
 
     World(int width, int height) // initialises a world with specified dimensions
     {
         this.width = width;
         this.height = height;
-        this.tilemap = new GameObject[height][width];
-        this.objects = new ArrayList<>();
+        this.tilemap = new GameObject[2][height][width];
+        this.creatures = new ArrayList<>();
+        this.terrain = new ArrayList<>();
 
         /* When the world is first created, creates a bunch of floor tiles equal to the number of
            spaces in the tilemap. Each floor tile's location is set to a unique place in teh tilemap */
         for(int row = 0; row < this.height; row++)
         {
             for(int col = 0; col < this.width; col++)
-                this.objects.add(new Floor(col, row));
+                this.terrain.add(new Floor(col, row));
         }
 
-        // Creates a new player and adds them to the object list.
+        // Creates a new player and adds them to the creatures list.
         /* When the world is initialised, the player position is set out of bounds
            Therefor, the player's position must be set manually to prevent crashing */
         this.player = new Player(-1,-1);
-        this.objects.add(this.player);
+        this.creatures.add(this.player);
     }
 
     World(int width, int height, Layout preset) // initialises a world with specified dimensions and a preset layout
     {
         this.width = width;
         this.height = height;
-        this.tilemap = new GameObject[height][width];
-        this.objects = new ArrayList<>();
+        this.tilemap = new GameObject[2][height][width];
+        this.creatures = new ArrayList<>();
+        this.terrain = new ArrayList<>();
 
         for(int row = 0; row < this.height; row++)
         {
             for(int col = 0; col < this.width; col++)
-                this.objects.add(new Floor(col, row));
+                this.terrain.add(new Floor(col, row));
         }
 
         this.player = new Player(-1,-1);
-        this.objects.add(this.player);
+        this.creatures.add(this.player);
 
         this.initPreset(preset);
     }
@@ -104,34 +110,50 @@ public class World
         for(int row = startY; row <= endY; row++)
         {
             for(int col = startX; col <= endX; col++)
-                this.objects.add(new Wall(col, row));
+                this.terrain.add(new Wall(col, row));
         }
     }
 
-    // Adds each object in the object list to the tilemap at their position
-    void update()
+    // Updates the position of each non-creature object.
+    // Non-creature objects don't move, so this should only be run when terrain is added
+    void terrainUpdate()
+    {
+        for(GameObject object : this.terrain)
+            this.tilemap[TERRAIN_LAYER][object.getY()][object.getX()] = object;
+    }
+
+    // Updates the position of each creature.
+    // Should be called after each turn.
+    void creatureUpdate()
     {
         // If the player's position would place the player onto an object with collision, it is first put back to its previous position
         /* Only runs collision check if the object exists, because otherwise it could crash trying to check
            the collision of an object that does not exist */
-        if(this.tilemap[this.player.getY()][this.player.getX()] != null && this.tilemap[this.player.getY()][this.player.getX()].hasCollision)
+        if(this.tilemap[TERRAIN_LAYER][this.player.getY()][this.player.getX()] != null && this.tilemap[TERRAIN_LAYER][this.player.getY()][this.player.getX()].hasCollision)
             this.player.setPosition(this.player.getPrevX(), this.player.getPrevY());
 
-        /* Objects are placed in the order they exist in the object list, thus objects later in the list will
-           replace, and in a sense be "drawn over" objects earlier in the list. The first objects in the list will
-           always be floor tiles, followed by the player, as they are added when the world is initialised */
-        for(GameObject object : this.objects)
-            this.tilemap[object.getY()][object.getX()] = object;
+        // Before placing each creature, first destroy and recreate the creature layer to empty it
+        this.tilemap[CREATURE_LAYER] = new GameObject[this.height][this.width];
+
+        for(Creature creature : this.creatures)
+        {
+            creature.update();
+            this.tilemap[CREATURE_LAYER][creature.getY()][creature.getX()] = creature;
+        }
     }
 
     //Prints the tilemap to the screen
     void display()
     {
-        for(GameObject[] row : this.tilemap)
+        for(int i = 0; i < this.tilemap[0].length; i++)
         {
-            for(GameObject object : row)
-                System.out.print(object);
-
+            for (int j = 0; j < this.tilemap[0][i].length; j++)
+                for (int k = this.tilemap.length - 1; k >= 0; k--)
+                    if (this.tilemap[k][i][j] != null)
+                    {
+                        System.out.print(this.tilemap[k][i][j]);
+                        break;
+                    }
             System.out.print("\n");
         }
     }

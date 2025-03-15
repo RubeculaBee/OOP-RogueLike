@@ -1,22 +1,20 @@
 import java.util.Scanner;
 
-public class Main
+public class GameLoop
 {
     static Scanner input = new Scanner(System.in);
-    static String action;
 
     public static void main(String[] args)
     {
         World testRoom = new World(18,9, Layout.INTERSECTION);
+        testRoom.terrainUpdate();
 
-        do
+        while(true)
         {
-            testRoom.update();
+            testRoom.creatureUpdate();
             testRoom.display();
-            action = input.nextLine();
 
-            testRoom.player.move(action);
+            testRoom.player.setAction(input.nextLine());
         }
-        while (!action.equals("exit"));
     }
 }
