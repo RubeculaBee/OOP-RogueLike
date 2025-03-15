@@ -1,13 +1,15 @@
+import java.awt.Color;
+
 public abstract class Creature extends GameObject
 {
     private int health; // Creature dies when this attribute reaches 0
     private int prevX; // The X position of the creature before it moved
     private int prevY; // The Y position of the creature before it moved
 
-    Creature(int x, int y, char sprite, int health)
+    Creature(int x, int y, char sprite, int health, Color color)
     {
         // Creatures always have collision, but sprite varies
-        super(x, y, true, sprite);
+        super(x, y, true, sprite, color);
         this.prevX = x;
         this.prevY = y;
         this.health = health;

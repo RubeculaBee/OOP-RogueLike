@@ -1,3 +1,5 @@
+import java.awt.Color;
+
 public class Goblin extends Creature
 {
     Player target;
@@ -5,7 +7,7 @@ public class Goblin extends Creature
     Goblin(int x, int y, Player target)
     {
         // Goblin always has 20 health and G as it's sprite
-        super(x, y, 'G', 20);
+        super(x, y, 'G', 20, Color.GREEN.darker());
         this.target = target;
     }
 

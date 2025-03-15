@@ -1,3 +1,5 @@
+import java.awt.Color;
+
 public class Player extends Creature
 {
     String action;
@@ -5,7 +7,7 @@ public class Player extends Creature
     Player(int x, int y)
     {
         //Player always has 100 health and @ as it's sprite
-        super(x, y, '@', 100);
+        super(x, y, '@', 100, Color.CYAN);
         action = "";
     }
 
