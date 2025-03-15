@@ -9,7 +9,7 @@ public class GameLoop
     {
         World testRoom = new World(18,9, Layout.EMPTY);
         testRoom.terrainUpdate();
-        testRoom.addCreature(new Goblin(2,2,testRoom.player));
+        testRoom.addCreature(new Sheep(5,5));
 
         while(true)
         {
