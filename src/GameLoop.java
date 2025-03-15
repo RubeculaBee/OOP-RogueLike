@@ -6,7 +6,7 @@ public class GameLoop
 
     public static void main(String[] args)
     {
-        World testRoom = new World(18,9, Layout.INTERSECTION);
+        World testRoom = new World(18,9, Layout.EMPTY);
         testRoom.terrainUpdate();
         testRoom.addCreature(new Goblin(2,2,testRoom.player));
 
