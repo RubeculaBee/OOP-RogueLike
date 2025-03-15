@@ -12,7 +12,8 @@ public class Goblin extends Creature
     @Override
     void update()
     {
-        chase();
+        if(GameLoop.iterations % 2 == 0)
+            chase();
     }
 
     void chase()
