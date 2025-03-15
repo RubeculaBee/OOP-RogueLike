@@ -12,18 +12,25 @@ public class Goblin extends Creature
     @Override
     void update()
     {
+        chase();
+    }
+
+    void chase()
+    {
         int distanceX = getX() - this.target.getX();
         int distanceY = getY() - this.target.getY();
 
-        if(Math.abs(distanceX) > Math.abs(distanceY))
-            if(distanceX > 0)
-                this.move("a");
-            else
-                this.move("d");
-        else
-            if(distanceY > 0)
+        if(Math.abs(distanceX) + Math.abs(distanceY) > 1)
+        {
+            if (Math.abs(distanceX) > Math.abs(distanceY))
+                if (distanceX > 0)
+                    this.move("a");
+                else
+                    this.move("d");
+            else if (distanceY > 0)
                 this.move("w");
             else
                 this.move("s");
+        }
     }
 }
