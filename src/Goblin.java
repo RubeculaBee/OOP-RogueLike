@@ -8,11 +8,6 @@ public class Goblin extends Creature implements Hostile
         super(x, y, 'G', 20);
     }
 
-    public void setTarget(GameObject target)
-    {
-        this.target = target;
-    }
-
     @Override
     void update()
     {
