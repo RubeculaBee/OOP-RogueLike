@@ -21,6 +21,12 @@ public abstract class Creature extends GameObject
     int getPrevX(){return this.prevX;}
     int getPrevY(){return this.prevY;}
 
+    void setPrevPosition()
+    {
+        this.prevX = this.getX();
+        this.prevY = this.getY();
+    }
+
     // Called everytime the world updates
     abstract void update();
 
@@ -36,30 +42,10 @@ public abstract class Creature extends GameObject
         switch (direction.toLowerCase())
         {
             //Sets the creatures previous position to their current position, then changes their position
-            case "w" ->
-            {
-                this.prevX = this.getX();
-                this.prevY = this.getY();
-                this.setPosition(this.getX(), this.getY()-1);
-            }
-            case "s" ->
-            {
-                this.prevX = this.getX();
-                this.prevY = this.getY();
-                this.setPosition(this.getX(), this.getY()+1);
-            }
-            case "a" ->
-            {
-                this.prevX = this.getX();
-                this.prevY = this.getY();
-                this.setPosition(this.getX()-1, this.getY());
-            }
-            case "d" ->
-            {
-                this.prevX = this.getX();
-                this.prevY = this.getY();
-                this.setPosition(this.getX()+1, this.getY());
-            }
+            case "w" -> this.setPosition(this.getX(), this.getY()-1);
+            case "s" -> this.setPosition(this.getX(), this.getY()+1);
+            case "a" -> this.setPosition(this.getX()-1, this.getY());
+            case "d" -> this.setPosition(this.getX()+1, this.getY());
         }
     }
 }
