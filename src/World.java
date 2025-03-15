@@ -150,14 +150,14 @@ public class World
     //Prints the tilemap to the screen
     void display()
     {
-        for(int i = 0; i < this.tilemap[0].length; i++)
+        for(int i = 0; i < this.tilemap[0].length; i++)            // for each x-coordinate
         {
-            for (int j = 0; j < this.tilemap[0][i].length; j++)
-                for (int k = this.tilemap.length - 1; k >= 0; k--)
-                    if (this.tilemap[k][i][j] != null)
+            for (int j = 0; j < this.tilemap[0][i].length; j++)    // for each y-coordinate
+                for (int k = this.tilemap.length - 1; k >= 0; k--) // for each layer (from top to bottom)
+                    if (this.tilemap[k][i][j] != null)             // if there is an object in that layer
                     {
-                        System.out.print(this.tilemap[k][i][j]);
-                        break;
+                        System.out.print(this.tilemap[k][i][j]);   // print that object
+                        break;                                     // then move to the next coordinate
                     }
             System.out.print("\n");
         }
