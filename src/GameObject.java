@@ -6,7 +6,7 @@ public abstract class GameObject
     private int y;         // Objects Y position
     boolean hasCollision;  // Whether the object has collision (are creatures prevented from moving over this object or not)
     private char sprite;   // What symbol to use when printing the object
-    private Color color; // What colour to use when printing the object
+    private Color color;   // What colour to use when printing the object
 
     GameObject(int x, int y, boolean hasCollision, char sprite, Color color)
     {
@@ -21,6 +21,7 @@ public abstract class GameObject
     int getY(){return this.y;}
     void setPosition(int x, int y){this.x = x; this.y = y;}
 
+    // Returns the objects symbol, wrapped in ANSI escape codes that set the print colour to the creatures colour
     @Override
     public String toString()
     {

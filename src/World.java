@@ -4,12 +4,12 @@ public class World
 {
     ArrayList<Creature> creatures; // A list of every creature in the world
     ArrayList<GameObject> terrain; // A list of every non-creature in the world
-    GameObject[][][] tilemap; // A 3D array that stores each object at its (x,y) position, as well as its height .
-    Player player; // The player, every world needs one.
-    int width, height; // The width and height of the world
+    GameObject[][][] tilemap;      // A 3D array that stores each object at its (x,y) position in its respective layer.
+    Player player;                 // The player, every world needs one.
+    int width, height;             // The width and height of the world
 
-    final int TERRAIN_LAYER = 0;   // first layer of objects stores the terrain
-    final int CREATURE_LAYER = 1; // second layer stores creatures
+    final int TERRAIN_LAYER = 0;   // first layer of tilemap stores the terrain
+    final int CREATURE_LAYER = 1;  // second layer stores creatures
 
     World(int width, int height) // initialises a world with specified dimensions
     {
@@ -20,12 +20,10 @@ public class World
         this.terrain = new ArrayList<>();
 
         /* When the world is first created, creates a bunch of floor tiles equal to the number of
-           spaces in the tilemap. Each floor tile's location is set to a unique place in teh tilemap */
+           spaces in the tilemap. Each floor tile's location is set to a unique place in the tilemap */
         for(int row = 0; row < this.height; row++)
-        {
             for(int col = 0; col < this.width; col++)
                 this.terrain.add(new Floor(col, row));
-        }
 
         // Creates a new player and adds them to the creatures list.
         /* When the world is initialised, the player position is set out of bounds
@@ -42,15 +40,16 @@ public class World
         this.creatures = new ArrayList<>();
         this.terrain = new ArrayList<>();
 
+        // Create floor
         for(int row = 0; row < this.height; row++)
-        {
             for(int col = 0; col < this.width; col++)
                 this.terrain.add(new Floor(col, row));
-        }
 
+        // Player does not need to be set manually, as the given preset will place the player
         this.player = new Player(-1,-1);
         this.creatures.add(this.player);
 
+        // Add walls based on preset
         this.initPreset(preset);
     }
 
@@ -70,7 +69,7 @@ public class World
                 this.player.setPosition(width/2,height/2);
             }
 
-            // Thick walls along the top and bottom, creating a single empty hallway in the middle
+            // Thick walls along the top and bottom, creating a single empty horizontal hallway in the middle
             case HALL_HORIZONTAL ->
             {
                 this.addWall(0,0,width-1,(int)((height-1)/3.));
@@ -79,7 +78,7 @@ public class World
                 this.player.setPosition(1,height/2);
             }
 
-            // Thick walls along the left and right, creating a single empty hallway in the middle
+            // Thick walls along the left and right, creating a single empty vertical hallway in the middle
             case HALL_VERTICAL ->
             {
                 this.addWall(0,0,(int)((width-1)/3.),height-1);
@@ -88,7 +87,7 @@ public class World
                 this.player.setPosition(width/2,1);
             }
 
-            /* Large blocks of wall in each corner, creating to hallways that extend from the left to the right, and
+            /* Large blocks of wall in each corner, creating two hallways that extend from the left to the right, and
                from the top to the bottom, intersecting in the middle */
             case INTERSECTION ->
             {
@@ -108,12 +107,11 @@ public class World
     void addWall(int startX, int startY, int endX, int endY)
     {
         for(int row = startY; row <= endY; row++)
-        {
             for(int col = startX; col <= endX; col++)
                 this.terrain.add(new Wall(col, row));
-        }
     }
 
+    // Takes a creature and adds it to the creature list
     void addCreature(Creature creature)
     {
         this.creatures.add(creature);
@@ -134,7 +132,7 @@ public class World
         for(Creature creature : this.creatures) //for each creature
         {
             creature.setPrevPosition();
-            creature.update(); // Run the creatures update method
+            creature.update(); // Run the creatures update method (usually involves movement)
 
             //check if it's movement collided with anything (and revert it if it did)
             creature.checkCollision(this.tilemap[CREATURE_LAYER][creature.getY()][creature.getX()]);
@@ -150,9 +148,9 @@ public class World
     //Prints the tilemap to the screen
     void display()
     {
-        for(int i = 0; i < this.tilemap[0].length; i++)            // for each x-coordinate
+        for(int i = 0; i < this.tilemap[0].length; i++)            // for each y-coordinate
         {
-            for (int j = 0; j < this.tilemap[0][i].length; j++)    // for each y-coordinate
+            for (int j = 0; j < this.tilemap[0][i].length; j++)    // for each x-coordinate
                 for (int k = this.tilemap.length - 1; k >= 0; k--) // for each layer (from top to bottom)
                     if (this.tilemap[k][i][j] != null)             // if there is an object in that layer
                     {
