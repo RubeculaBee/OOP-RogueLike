@@ -25,6 +25,6 @@ public abstract class GameObject
     @Override
     public String toString()
     {
-        return String.format("\033[38;2;%d;%d;%dm%s\033[0m", color.getRed(), color.getGreen(), color.getBlue(), this.sprite);
+        return String.format("\033[38;2;%d;%d;%dm%s\033[0m", this.color.getRed(), this.color.getGreen(), this.color.getBlue(), this.sprite);
     }
 }
