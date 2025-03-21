@@ -11,6 +11,7 @@ public class GameLoop
         testRoom.terrainUpdate();
 
         // disgusting code
+        // Generates 4 random creatures in 4 random locations
         for(int i = 0; i < 4; i++)
             testRoom.addCreature(switch((int)(Math.random()*2))
             {
@@ -22,9 +23,7 @@ public class GameLoop
         {
             testRoom.creatureUpdate();
             testRoom.display();
-
             testRoom.player.setAction(input.nextLine());
-
             iterations++;
         }
     }
